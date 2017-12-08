@@ -31,7 +31,7 @@ class NewsController extends Controller
 
     public function actionItemDetail($title) {
         $item = null;
-        
+
     }
 
 
