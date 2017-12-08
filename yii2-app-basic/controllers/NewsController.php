@@ -1,4 +1,6 @@
 <?php declare(strict_types=1);
+
+// Page 28 
 /**
  * Created by PhpStorm.
  * User: Admin
@@ -15,7 +17,7 @@ use yii\web\Controller;
 class NewsController extends Controller
 {
 
-    private function dataList() : array
+    private function dataList(): array
     {
         return [
             ["title" => "First World War", "date" => "1914-07-28"],
@@ -29,9 +31,16 @@ class NewsController extends Controller
         return $this->render('itemList', ['newList' => $this->dataList()]);
     }
 
-    public function actionItemDetail($title) {
+    public function actionItemDetail($title)
+    {
         $item = null;
-
+        foreach ($this->dataList() as $it) {
+            if (
+                $title === $it["title"]) {
+                $item = $it;
+            }
+        }
+        return $this->render("itemDetail", ['item' => $item]);
     }
 
 
