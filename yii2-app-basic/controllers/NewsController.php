@@ -1,6 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
-// Page 28 
+// Page 28
 /**
  * Created by PhpStorm.
  * User: Admin
@@ -10,6 +11,8 @@
 
 namespace app\controllers;
 
+use app\models\News;
+
 use Yii;
 use yii\web\Controller;
 
@@ -17,12 +20,15 @@ use yii\web\Controller;
 class NewsController extends Controller
 {
 
+    /**
+     * @return News[]
+     */
     private function dataList(): array
     {
         return [
-            ["title" => "First World War", "date" => "1914-07-28"],
-            ["title" => "Second World War", "date" => "1939-09-01"],
-            ["title" => "First man on the moon", "date" => "1969-07-20"]
+            new News(1, "First World War", new \DateTime("1914-07-28")),
+            new News(2, "Second World War", new \DateTime("1939-09-01")),
+            new News(3, "First man on the moon", new \DateTime("1969-07-20")),
         ];
     }
 
@@ -31,12 +37,11 @@ class NewsController extends Controller
         return $this->render('itemList', ['newList' => $this->dataList()]);
     }
 
-    public function actionItemDetail($title)
+    public function actionItemDetail(int $id)
     {
         $item = null;
         foreach ($this->dataList() as $it) {
-            if (
-                $title === $it["title"]) {
+            if ($id === $it->getId()) {
                 $item = $it;
             }
         }
