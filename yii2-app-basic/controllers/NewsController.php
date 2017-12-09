@@ -26,15 +26,34 @@ class NewsController extends Controller
     private function dataList(): array
     {
         return [
-            new News(1, "First World War", new \DateTime("1914-07-28")),
-            new News(2, "Second World War", new \DateTime("1939-09-01")),
-            new News(3, "First man on the moon", new \DateTime("1969-07-20")),
+            new News(1, "First World War", new \DateTime("1914-07-28"), "history"),
+            new News(2, "Second World War", new \DateTime("1939-09-01"), "history"),
+            new News(3, "First man on the moon", new \DateTime("1969-07-20"), "history"),
+            new News(4, "News 2015-05-01", new \DateTime("2015-05-01"), "business"),
+            new News(5, "News 2015-06-01", new \DateTime("2015-06-01"), "business"),
+            new News(6, "News 2015-07-01", new \DateTime("2015-07-01"), "business"),
+            new News(4, "News 2015-05-15", new \DateTime("2015-05-15"), "shopping"),
+            new News(5, "News 2015-06-15", new \DateTime("2015-06-15"), "shopping"),
+            new News(6, "News 2015-07-15", new \DateTime("2015-07-15"), "shopping"),
         ];
     }
 
-    public function actionIndex()
+    public function actionItemList()
     {
-        return $this->render('itemList', ['newList' => $this->dataList()]);
+        $year = Yii::$app->request->get("year");
+        $category = Yii::$app->request->get("category");
+
+        $data = $this->dataList();
+        $filteredData = [];
+        foreach ($data as $d) {
+            if ((($year != null) && ($d->getDate()->format('Y') === $year)) ||
+                (($category != null) && ($category === $d->getCategory())) ||
+                ($year == null && $category == null)) {
+                $filteredData[] = $d;
+            }
+        }
+
+        return $this->render('itemList', ['year' => $year, 'newList' => $filteredData, 'category' => $category]);
     }
 
     public function actionItemDetail(int $id)
@@ -46,19 +65,22 @@ class NewsController extends Controller
             }
         }
         return $this->render("itemDetail", ['item' => $item]);
+
     }
 
 
-    public function actionAdvTest() {
+    public function actionAdvTest()
+    {
         return $this->render('advTest');
     }
 
-    public function actionResponsiveContentTest() {
-        $responsive = Yii::$app->request->get('responsive',false);
+    public function actionResponsiveContentTest()
+    {
+        $responsive = Yii::$app->request->get('responsive', false);
         if ($responsive) {
-            $this->layout='responsive';
-        }else {
-            $this->layout='main';
+            $this->layout = 'responsive';
+        } else {
+            $this->layout = 'main';
         }
 
         return $this->render('responsiveContentTest', ['responsive' => $responsive]);
