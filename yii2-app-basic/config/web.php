@@ -47,7 +47,7 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
+           // 'enableStrictParsing' => true,
             'rules' => [
                 'news/<year:\d{4}>/item-list' => 'news/item-list',
 //                'news/<category:\w+>/item-list' => 'news/item-list'
@@ -55,6 +55,10 @@ $config = [
                     'pattern' => 'news/<category:\w+>/item-list',
                     'route' => 'news/item-list',
                     'defaults' => ['category' => 'shopping']
+                ],
+                [
+                    'pattern' => '<lang:\w+>/<controller>/<action>',
+                    'route' => '<controller>/<action>'
                 ]
 
             ],

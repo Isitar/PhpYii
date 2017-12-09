@@ -56,6 +56,10 @@ class NewsController extends Controller
         return $this->render('itemList', ['year' => $year, 'newList' => $filteredData, 'category' => $category]);
     }
 
+    public function actionIndex() {
+        return $this->render('index');
+    }
+
     public function actionItemDetail(int $id)
     {
         $item = null;
@@ -86,4 +90,11 @@ class NewsController extends Controller
         return $this->render('responsiveContentTest', ['responsive' => $responsive]);
     }
 
+
+    public function actionInternationalIndex() {
+        $lang = Yii::$app->request->get('lang','en');
+        Yii::$app->language = $lang;
+
+        return $this->render('internationalIndex');
+    }
 }
