@@ -9,7 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
@@ -47,10 +47,15 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-           // 'enableStrictParsing' => true,
+            // 'enableStrictParsing' => true,
             'rules' => [
-                'news/<year:\d{4}>/item-list' => 'news/item-list',
-//                'news/<category:\w+>/item-list' => 'news/item-list'
+                ['class' => 'app\components\NewsUrlRule'],
+                [
+                    'pattern' => 'news/<year:\d{4}>/item-list',
+                    'route' => 'news/item-list',
+                    'defaults' => ['year' => 2015]
+                ],
+
                 [
                     'pattern' => 'news/<category:\w+>/item-list',
                     'route' => 'news/item-list',
@@ -59,7 +64,8 @@ $config = [
                 [
                     'pattern' => '<lang:\w+>/<controller>/<action>',
                     'route' => '<controller>/<action>'
-                ]
+                ],
+
 
             ],
         ],

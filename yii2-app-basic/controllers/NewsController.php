@@ -60,15 +60,17 @@ class NewsController extends Controller
         return $this->render('index');
     }
 
-    public function actionItemDetail(int $id)
+    public function actionItemDetail()
     {
+        $title = Yii::$app->request->get('title');
+
         $item = null;
         foreach ($this->dataList() as $it) {
-            if ($id === $it->getId()) {
+            if ($title === $it->getTitle()) {
                 $item = $it;
             }
         }
-        return $this->render("itemDetail", ['item' => $item]);
+        return $this->render("itemDetail", ['title' => $title,'item' => $item]);
 
     }
 
