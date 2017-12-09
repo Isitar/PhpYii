@@ -3,6 +3,10 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+$this->params['breadcrumbs'][]  ='My website';
+
+
+$this->params['background_color'] = $_REQUEST['bckg'] ?? '#AAAAAA';
 ?>
 <div class="site-index">
 
