@@ -53,4 +53,15 @@ class NewsController extends Controller
         return $this->render('advTest');
     }
 
+    public function actionResponsiveContentTest() {
+        $responsive = Yii::$app->request->get('responsive',false);
+        if ($responsive) {
+            $this->layout='responsive';
+        }else {
+            $this->layout='main';
+        }
+
+        return $this->render('responsiveContentTest', ['responsive' => $responsive]);
+    }
+
 }
