@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// Page 28
+
 /**
  * Created by PhpStorm.
  * User: Admin
@@ -48,5 +48,9 @@ class NewsController extends Controller
         return $this->render("itemDetail", ['item' => $item]);
     }
 
+
+    public function actionAdvTest() {
+        return $this->render('advTest');
+    }
 
 }

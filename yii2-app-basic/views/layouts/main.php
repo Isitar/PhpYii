@@ -63,9 +63,18 @@ $backgroundColor = $this->params['background_color'] ?? '#FFFFFF';
 
     <div class="container">
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => $this->params['breadcrumbs'] ?? [],
         ]) ?>
+
+        <div class="well">
+            This is the content for blockADV from view
+            <br />
+            <?php echo $this->blocks['blockADV'] ?? '<i>no content available</i>'; ?>
+        </div>
+
         <?= Alert::widget() ?>
+
+
         <?= $content ?>
     </div>
 </div>
