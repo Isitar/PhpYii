@@ -33,5 +33,12 @@ class RoomsController extends Controller
 
     }
 
+    public function actionIndex() {
+        $sql = 'SELECT * FROM room ORDER BY id ASC';
+        $db = Yii::$app->db;
+        $rooms = $db->createCommand($sql)->queryAll();
+        //$rooms->map
+        return $this->render('index', ['rooms' => $rooms]);
+    }
 
 }

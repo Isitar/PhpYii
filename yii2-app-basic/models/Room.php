@@ -17,6 +17,7 @@ class Room extends Model
     public $roomNumber;
     public $hasConditioner;
     public $hasTV;
+
     public $hasPhone;
     public $availableFrom;
     public $pricePerDay;
@@ -54,6 +55,22 @@ class Room extends Model
             ['description', 'string', 'max' => 500],
             ['fileImage', 'image']
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasPhone() : bool
+    {
+        return $this->hasPhone;
+    }
+
+    /**
+     * @param bool $hasPhone
+     */
+    public function setHasPhone(bool $hasPhone)
+    {
+        $this->hasPhone = $hasPhone;
     }
 
 }
