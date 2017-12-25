@@ -1,7 +1,8 @@
 <table class="table">
+
     <tr>
         <th>Room Id</th>
-        <td> <?= $lastReservation['roomId'] ?></td>
+        <td> <?= $lastReservation['room_id'] ?></td>
     </tr>
     <tr>
         <th>Customer Id</th>

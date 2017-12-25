@@ -73,7 +73,7 @@ class Room extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getLastReservation() : ActiveQuery{
+    public function getLastReservation() {
         return $this->hasOne(Reservation::className(),['room_id' => 'id'])->orderBy('id');
     }
 }
