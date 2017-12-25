@@ -67,8 +67,8 @@ $sf = $searchFilter;
     </div>
     <div class="row">
         <div class="col-md-3">
-            <input type="submit" value="filter" class="btn btn-primary" />
-            <input type="submit" value="reset" class="btn btn-primary" />
+            <input type="submit" value="filter" name="sendButton" class="btn btn-primary" />
+            <input type="submit" value="reset" name="sendButton" class="btn btn-primary" />
         </div>
     </div>
 </form>

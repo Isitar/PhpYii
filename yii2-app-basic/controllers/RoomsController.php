@@ -51,7 +51,8 @@ class RoomsController extends Controller
             'roomNumber' => ['operator'=> '', 'value' => ''],
             'pricePerDay' => ['operator'=> '', 'value' => '']
             ];
-        if (isset($_POST['SearchFilter'])) {
+        if (isset($_POST['SearchFilter']) && $_POST['sendButton'] == 'filter') {
+
             $fieldsList = ['floor','roomNumber','pricePerDay'];
             foreach ($fieldsList as $field) {
                 $fieldOperator = $_POST['SearchFilter'][$field]['operator'];
@@ -66,4 +67,12 @@ class RoomsController extends Controller
         return $this->render('indexFiltered', ['rooms' => $rooms, 'searchFilter' => $searchFilter]);
     }
 
+
+    public function actionLastReservationByRoomId(int $roomId)
+    {
+        $room = Room::findOne($roomId);
+
+        $lastReservation = $room->getLastReservation();
+        return $this->render('lastReservationByRoomId', ['lastReservation' => $lastReservation]);
+    }
 }

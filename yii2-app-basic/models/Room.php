@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -67,7 +67,13 @@ class Room extends ActiveRecord
      */
     public function getReservations()
     {
-
         return $this->hasMany(Reservation::className(), ['room_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getLastReservation() : ActiveQuery{
+        return $this->hasOne(Reservation::className(),['room_id' => 'id'])->orderBy('id');
     }
 }
