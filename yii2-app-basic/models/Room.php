@@ -1,76 +1,72 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 14.12.2017
- * Time: 14:36
- */
 
 namespace app\models;
 
+use Yii;
 
-use yii\base\Model;
-
-class Room extends Model
+/**
+ * This is the model class for table "room".
+ *
+ * @property integer $id
+ * @property integer $floor
+ * @property integer $roomNumber
+ * @property integer $hasConditioner
+ * @property integer $hasTV
+ * @property integer $hasPhone
+ * @property string $availableFrom
+ * @property string $pricePerDay
+ * @property string $description
+ *
+ * @property Reservation[] $reservations
+ */
+class Room extends \yii\db\ActiveRecord
 {
-    public $floor;
-    public $roomNumber;
-    public $hasConditioner;
-    public $hasTV;
-
-    public $hasPhone;
-    public $availableFrom;
-    public $pricePerDay;
-    public $description;
-    public $fileImage;
-
-
     /**
-     * @return array
+     * @inheritdoc
      */
-    public function attributeLabels(): array
+    public static function tableName()
     {
-        return [
-            'floor' => 'Floor',
-            'roomNumber' => 'Room number',
-            'hasConditioner' => 'Condition available',
-            'hasTV' => 'TV available',
-            'hasPhone' => 'Phone availabe',
-            'availableFrom' => 'Available from',
-            'pricePerDay' => 'Price (CHF/day)',
-            'description' => 'Description',
-            'fileImage' => 'Image',
-        ];
+        return 'room';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            ['floor', 'integer', 'min' => 0],
-            ['roomNumber', 'integer', 'min' => 0],
-            [['hasConditioner', 'hasTV', 'hasPhone'], 'integer',
-                'min' => 0, 'max' => 1],
-            ['availableFrom', 'date', 'format' => 'php:Y-m-d'],
-            ['pricePerDay', 'number', 'min' => 0],
-            ['description', 'string', 'max' => 500],
-            ['fileImage', 'image']
+            [['floor', 'roomNumber', 'hasConditioner', 'hasTV', 'hasPhone', 'availableFrom'], 'required'],
+            [['floor', 'roomNumber', 'hasConditioner', 'hasTV', 'hasPhone'], 'integer'],
+            [['availableFrom'], 'safe'],
+            [['pricePerDay'], 'number'],
+            [['description'], 'string'],
         ];
     }
 
     /**
-     * @return bool
+     * @inheritdoc
      */
-    public function getHasPhone() : bool
+    public function attributeLabels()
     {
-        return $this->hasPhone;
+        return [
+            'id' => 'ID',
+            'floor' => 'Floor',
+            'roomNumber' => 'Room Number',
+            'hasConditioner' => 'Has Conditioner',
+            'hasTV' => 'Has Tv',
+            'hasPhone' => 'Has Phone',
+            'availableFrom' => 'Available From',
+            'pricePerDay' => 'Price Per Day',
+            'description' => 'Description',
+        ];
     }
 
     /**
-     * @param bool $hasPhone
+     * @return \yii\db\ActiveQuery
      */
-    public function setHasPhone(bool $hasPhone)
+    public function getReservations()
     {
-        $this->hasPhone = $hasPhone;
-    }
 
+        return $this->hasMany(Reservation::className(), ['room_id' => 'id']);
+    }
 }

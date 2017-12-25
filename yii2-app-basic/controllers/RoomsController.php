@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use app\models\Room;
 use Yii;
+use yii\db\mssql\PDO;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -34,10 +35,11 @@ class RoomsController extends Controller
     }
 
     public function actionIndex() {
-        $sql = 'SELECT * FROM room ORDER BY id ASC';
-        $db = Yii::$app->db;
-        $rooms = $db->createCommand($sql)->queryAll();
-        //$rooms->map
+        $rooms = Room::find()->orderBy('id')->all();
+//        $sql = 'SELECT * FROM room ORDER BY id ASC';
+//        $db = Yii::$app->db;
+//        $rooms = $db->createCommand($sql)->queryAll();
+
         return $this->render('index', ['rooms' => $rooms]);
     }
 
